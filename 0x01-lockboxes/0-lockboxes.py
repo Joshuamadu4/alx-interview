@@ -1,27 +1,27 @@
-#!/usr/bin/python3
 def canUnlockAll(boxes):
-    # Initialize a set to keep track of the unlocked boxes.
-    unlocked_boxes = set([0])
+    # Initialize a set to keep track of visited boxes.
+    visited_boxes = set()
 
-    # Initialize a queue to perform BFS on the boxes and find keys.
-    queue = [0]
+    # Define a helper function for DFS.
+    def dfs(box):
+        visited_boxes.add(box)
+        for key in boxes[box]:
+            if key not in visited_boxes:
+                dfs(key)
 
-    while queue:
-        current_box = queue.pop(0)
-        keys = boxes[current_box]
+    # Start DFS from the first box.
+    dfs(0)
 
-        for key in keys:
-            if key not in unlocked_boxes:
-                unlocked_boxes.add(key)
-                queue.append(key)
+    # Check if all boxes have been visited.
+    return len(visited_boxes) == len(boxes)
 
-    # Check if all boxes can be unlocked.
-    return len(unlocked_boxes) == len(boxes)
-
-# Test cases
+# Test cases from main_0.py
 boxes1 = [[1], [2], [3], [4], []]
 print(canUnlockAll(boxes1))  # Output: True
 
-boxes2 = [[1, 4, 5], [2], [5, 2], [3], [4, 1], [3, 5]]
-print(canUnlockAll(boxes2))  # Output: False
+boxes2 = [[1, 4, 6], [2], [0, 4, 1], [5, 6, 2], [3], [4, 1], [6]]
+print(canUnlockAll(boxes2))  # Output: True
+
+boxes3 = [[1, 4], [2], [0, 4, 1], [3], [], [4, 1], [5, 6]]
+print(canUnlockAll(boxes3))  # Output: False
 
