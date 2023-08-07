@@ -3,7 +3,7 @@
    from a list of lists
 """
 
-def can_unlock_all(boxes=[]):
+def can_unlock_all(boxes=None):
     """A function that returns True if all boxes in
     boxes can be opened
     """
