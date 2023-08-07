@@ -3,7 +3,7 @@
    from a list of lists
 """
 
-def canUnlockAll(boxes=[]):
+def can_unlock_all(boxes=[]):
     """A function that returns True if all boxes in
     boxes can be opened
     """
@@ -11,7 +11,7 @@ def canUnlockAll(boxes=[]):
         return False
 
     # Initialize a set to keep track of keys available
-    keys = set([0])
+    keys = {0}
 
     # Iterate through each box and its corresponding index
     for box_id, box in enumerate(boxes):
@@ -33,14 +33,14 @@ if __name__ == '__main__':
         [3, 0],
         [1, 2, 3],
     ]
-    print(canUnlockAll(boxes))
+    print(can_unlock_all(boxes))
 
     boxes = [[1], [2], [3], [4], []]
-    print(canUnlockAll(boxes))
+    print(can_unlock_all(boxes))
 
     boxes = [[1, 4, 6], [2], [0, 4, 1], [5, 6, 2], [3], [4, 1], [6]]
-    print(canUnlockAll(boxes))
+    print(can_unlock_all(boxes))
 
     boxes = [[1, 4], [2], [0, 4, 1], [3], [], [4, 1], [5, 6]]
-    print(canUnlockAll(boxes))
+    print(can_unlock_all(boxes))
 
