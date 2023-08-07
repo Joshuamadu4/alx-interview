@@ -1,33 +1,46 @@
 #!/usr/bin/python3
+"""A python module that determines if all boxes can be opened
+   from a list of lists
+"""
 
-def canUnlockAll(boxes):
-    # Initialize a set to keep track of unlocked boxes.
-    unlocked_boxes = set([0])
-    
-    # Initialize a queue to perform BFS on the boxes and find keys.
-    queue = [0]
-    
-    while queue:
-        current_box = queue.pop(0)
-        keys = boxes[current_box]
-        
-        for key in keys:
-            if key not in unlocked_boxes:
-                unlocked_boxes.add(key)
-                queue.append(key)
-    
-    # Check if all boxes can be unlocked.
-    return len(unlocked_boxes) == len(boxes)
+def canUnlockAll(boxes=[]):
+    """A function that returns True if all boxes in
+    boxes can be opened
+    """
+    if not boxes:
+        return False
 
-# Test cases from main_0.py
-boxes1 = [[1], [2], [3], [4], []]
-print(canUnlockAll(boxes1))  # Output: True
+    # Initialize a set to keep track of keys available
+    keys = set([0])
 
-boxes2 = [[1, 4, 5], [2], [5, 2], [3], [4, 1], [3, 5]]
-print(canUnlockAll(boxes2))  # Output: False
+    # Iterate through each box and its corresponding index
+    for box_id, box in enumerate(boxes):
+        for key in box:
+            # Check if the key is valid and not the current box
+            if key < len(boxes) and key != box_id:
+                keys.add(key)
 
-boxes3 = [[4, 6], [2], [0, 4, 1], [3], [], [4, 1], [5, 6]]
-print(canUnlockAll(boxes3))  # Output: False
+    # If the number of unique keys matches the number of boxes, return True
+    if len(keys) != len(boxes):
+        return False
 
-# Add more test cases as needed...
+    return True
+
+if __name__ == '__main__':
+    boxes = [
+        [1, 3],
+        [2],
+        [3, 0],
+        [1, 2, 3],
+    ]
+    print(canUnlockAll(boxes))
+
+    boxes = [[1], [2], [3], [4], []]
+    print(canUnlockAll(boxes))
+
+    boxes = [[1, 4, 6], [2], [0, 4, 1], [5, 6, 2], [3], [4, 1], [6]]
+    print(canUnlockAll(boxes))
+
+    boxes = [[1, 4], [2], [0, 4, 1], [3], [], [4, 1], [5, 6]]
+    print(canUnlockAll(boxes))
 
